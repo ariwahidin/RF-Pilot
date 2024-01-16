@@ -34,7 +34,7 @@
                             </thead>
                             <tbody>
                                 <?php $no = 1;
-                                foreach ($manifes->result() as $data) { ?>
+                                foreach ($manifes as $data) { ?>
                                     <tr>
                                         <td><?= $no++ ?></td>
                                         <td><?= $data->dept ?></td>

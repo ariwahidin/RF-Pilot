@@ -26,7 +26,16 @@ class Manifes extends CI_Controller
         $data = array(
             'manifes' => $manifes
         );
-        $this->template->load('template', 'manifes/daftar_manifes_v', $data);
+
+        $username = $this->session->userdata('username');
+        $sql = "select is_admin from master_user where username = '$username'";
+        $cek_is_admin = $this->db->query($sql);
+        
+        if($cek_is_admin->row()->is_admin == 'y'){
+            redirect('data');
+        }else{
+            $this->template->load('template', 'manifes/daftar_manifes_v', $data);
+        }
     }
 
     public function search_by_no_manifest()

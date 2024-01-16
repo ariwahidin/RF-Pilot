@@ -131,6 +131,22 @@
                             </a>
                         </li> -->
                         <li class="nav-item">
+                            <a onclick="loading()" href="<?= base_url('manifes') ?>" class="nav-link">
+                                <i class="nav-icon far fa-circle nav-icon"></i>
+                                <p>
+                                    Manifest
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a onclick="loading()" href="<?= base_url('maintenance/index') ?>" class="nav-link">
+                                <i class="nav-icon far fa-circle nav-icon"></i>
+                                <p>
+                                    Maintenance Kendaraan
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a onclick="loading()" href="<?= base_url('auth/logout') ?>" class="nav-link">
                                 <i class="nav-icon far fa-circle nav-icon"></i>
                                 <p>

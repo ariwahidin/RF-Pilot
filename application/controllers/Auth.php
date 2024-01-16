@@ -7,7 +7,7 @@ class Auth extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('user_m');
+        $this->load->model('auth_m');
     }
 
     public function index($params = null)
@@ -23,32 +23,40 @@ class Auth extends CI_Controller
         }
     }
 
-    public function process()
+    public function proses()
     {
         $post = $_POST;
-        $login = $this->user_m->get_user($post);
-        if ($login->num_rows() > 0) {
-            $params = array(
-                'username' => $login->row()->username,
-                'dept' =>$login->row()->dept
+        $user = $this->auth_m->proses($post);
+        $session = array();
+        $response = array();
+        if ($user->num_rows() > 0) {
+            $session['rf_pilot'] = array(
+                'username' => $user->row()->username
             );
-            $this->session->set_userdata($params);
-            if ($login->row()->is_admin == 'y'){
-                redirect(base_url('data'));
-            }else{
-                redirect(base_url('manifes/manifes_list'));
-            }
+            $this->session->set_userdata($session);
+            $response = array(
+                'success' => true
+            );
         } else {
-            $data = array(
+            $response = array(
                 'success' => false
             );
-            $this->load->view('auth/auth', $data);
         }
+        echo json_encode($response);
+    }
+
+    public function auth()
+    {
+        $session = $this->session->userdata();
+        if (isset($session['rf_pilot'])) {
+            redirect(base_url('mobile/index'));
+        }
+        var_dump($session);
     }
 
     public function logout()
     {
-        $params = array('username','dept');
+        $params = array('rf_pilot');
         $this->session->unset_userdata($params);
         redirect(base_url('auth'));
     }
